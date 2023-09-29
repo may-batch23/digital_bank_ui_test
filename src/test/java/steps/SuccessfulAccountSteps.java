@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import pages.CheckingAccountPage;
 import pages.LoginPage;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public class SuccessfulAccountSteps {
    WebDriver driver = new FirefoxDriver();
     private LoginPage loginPage = new LoginPage(driver);
 
+    private CheckingAccountPage checkingAccountPage;
+
     @BeforeAll
     public static void setup() {
 
@@ -31,14 +34,12 @@ public class SuccessfulAccountSteps {
 
     }
 
-    @Before
-    public void the_user_is_on_dbank_homepage() {
-
-        driver.get("https://dbank-qa.wedevx.co/bank/login");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+    @Given("the user is on the dbank homepage {string}")
+    public void the_user_is_on_the_dbank_homepage(String homePageLink) {
+       driver.get(homePageLink);
+       driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
     }
-
 
     @Given("the user logged in as {string} {string}")
     public void the_user_logged_in_as(String username, String password) {
@@ -49,12 +50,12 @@ public class SuccessfulAccountSteps {
 
         SuccessfulAccountInfo testDataForOneCheckingAccount = successfulAccountInfoList.get(0);
 
-        WebElement checkingMenu = driver.findElement(By.id("checking-menu"));
-        checkingMenu.click();
+        checkingAccountPage = new CheckingAccountPage(driver);
+
+        checkingAccountPage.clickCheckingMenu();
 
         //the user clicks on the new checking button
-        WebElement newCheckingButton = driver.findElement(By.id("new-checking-menu-item"));
-        newCheckingButton.click();
+        checkingAccountPage.clickNewCheckingButton();
 
         String expectedUrl = "https://dbank-qa.wedevx.co/bank/account/checking-add";
 
@@ -68,17 +69,15 @@ public class SuccessfulAccountSteps {
         WebElement ownershipTypeRadioButton =  driver.findElement(By.id(testDataForOneCheckingAccount.getAccountOwnership()));
         ownershipTypeRadioButton.click();
 
+
         //the user gives a name to the account
-        WebElement accountNameTxt = driver.findElement(By.id("name"));
-        accountNameTxt.sendKeys(testDataForOneCheckingAccount.getAccountName());
+        checkingAccountPage.enterAccountName(testDataForOneCheckingAccount.getAccountName());
 
         //user makes the initial deposit
-        WebElement openingBalanceTxtBox = driver.findElement(By.id("openingBalance"));
-        openingBalanceTxtBox.sendKeys(String.valueOf(testDataForOneCheckingAccount.getInitialDepositAmount()));
+        checkingAccountPage.enterOpeningBalance(testDataForOneCheckingAccount.getInitialDepositAmount());
 
         //the user clicks on the submit button
-        WebElement submit = driver.findElement(By.id("newCheckingSubmit"));
-        submit.click();
+        checkingAccountPage.clickSubmitButton();
 
     }
     @Then("the user should see the green {string} message")

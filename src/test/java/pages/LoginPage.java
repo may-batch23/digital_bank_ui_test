@@ -17,7 +17,7 @@ public class LoginPage {
     @FindBy (id="password")
     private WebElement passwordTxtBox;
 
-    @FindBy (id="remmember-me")
+    @FindBy (id="remember-me")
     private WebElement remember_meCheckBox;
 
     @FindBy (xpath = "//button")

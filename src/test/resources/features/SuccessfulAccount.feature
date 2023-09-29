@@ -1,5 +1,8 @@
 Feature: Confirming a new checking account
 
+  Background:
+    Given the user is on the dbank homepage "https://dbank-qa.wedevx.co/bank/login"
+
   Scenario: Create a standard individual checking account
 
     Given the user logged in as "yurapro02@gmail.com" "Yura1234"
