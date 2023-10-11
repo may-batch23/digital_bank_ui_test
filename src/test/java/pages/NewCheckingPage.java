@@ -1,10 +1,13 @@
 package pages;
 
 import models.NewCheckingAccountInfo;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -39,6 +42,8 @@ public class NewCheckingPage {
     public void createNewChecking(List<NewCheckingAccountInfo> checkingAccountInfoList){
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         checkingBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(newCheckingBtn));
         newCheckingBtn.click();
         standardCheckingRadioBtn.click();
         individualRadioBtn.click();

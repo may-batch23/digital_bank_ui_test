@@ -24,22 +24,17 @@ public class NewCheckingWithLowAmountSteps {
     private LoginPage loginPage = new LoginPage(driver);
     private NewCheckingPage newCheckingPage = new NewCheckingPage(driver);
 
-    @Before
-    public void theUserIsOnTheWebpage() {
+    @Given("the user is on the {string} and logged in as {string} with a password {string}")
+    public void the_user_is_on_the_and_logged_in_as_with_a_password(String url, String email, String password) {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get("https://dbank-qa.wedevx.co/bank/login");
-    }
-
-    @Given("the user logged in as {string} with a password {string}")
-    public void the_user_logged_in_as_with_a_password(String email, String password) {
+        driver.get(url);
         loginPage.login(email, password);
     }
 
     @When("the user creates a new checking account with the following data")
-    public void the_user_creates_a_new_checking_account_with_the_following_data(List<NewCheckingAccountInfo> checkingAccountInfoList) throws InterruptedException {
-        Thread.sleep(4000);
-        newCheckingPage.createNewChecking(checkingAccountInfoList);
+    public void the_user_creates_a_new_checking_account_with_the_following_data(List<NewCheckingAccountInfo> checkingAccountInfoList) {
+       newCheckingPage.createNewChecking(checkingAccountInfoList);
     }
 
     @Then("you should see an error message {string}")

@@ -19,7 +19,7 @@ public class LoginPage {
     @FindBy(id = "password")
     private WebElement passwordField;
 
-    @FindBy(id = "remember=me")
+    @FindBy(id = "remember-me")
     private WebElement rememberMeCheckbox;
 
     @FindBy(id = "submit")
@@ -27,8 +27,6 @@ public class LoginPage {
 
     @FindBy(xpath = "//a[contains(text(),'Sign Up Here')]")
     private WebElement signUpHereLink;
-
-    //create instance methods
 
     public void login(String username, String password){
         usernameField.sendKeys(username);
