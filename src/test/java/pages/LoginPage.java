@@ -5,33 +5,31 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-
 public class LoginPage {
     private WebDriver driver;
-    public LoginPage(WebDriver driver){
+    public LoginPage (WebDriver driver){
         this.driver = driver;
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(driver,this);
     }
 
     @FindBy(id="username")
-    private WebElement usernameField;
+    private WebElement usernameTxtBox;
+    @FindBy (id="password")
+    private WebElement passwordTxtBox;
 
-    @FindBy(id = "password")
-    private WebElement passwordField;
+    @FindBy (id="remember-me")
+    private WebElement remember_meCheckBox;
 
-    @FindBy(id = "remember-me")
-    private WebElement rememberMeCheckbox;
+    @FindBy (xpath = "//button")
+    private WebElement submitButton;
 
-    @FindBy(id = "submit")
-    private WebElement submitBtn;
-
-    @FindBy(xpath = "//a[contains(text(),'Sign Up Here')]")
+    @FindBy (xpath="//a[contains(text(), 'Sign Up Here')]")
     private WebElement signUpHereLink;
 
+    //create action methods
     public void login(String username, String password){
-        usernameField.sendKeys(username);
-        passwordField.sendKeys(password);
-        submitBtn.click();
+        usernameTxtBox.sendKeys(username);
+        passwordTxtBox.sendKeys(password);
+        submitButton.click();
     }
 }
-

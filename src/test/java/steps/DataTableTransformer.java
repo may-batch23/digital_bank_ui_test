@@ -1,18 +1,17 @@
 package steps;
 
 import io.cucumber.java.DataTableType;
-import models.NewCheckingAccountInfo;
+import models.SuccessfulAccountInfo;
 
 import java.util.Map;
 
 public class DataTableTransformer {
     @DataTableType
-    public NewCheckingAccountInfo newCheckingAccountInfoEntry (Map<String, String> entry){
+    public SuccessfulAccountInfo newSuccessfulAccountInfoEntry (Map<String, String> entry) {
         String checkingAccountType = entry.get("checkingAccountType");
-        String accountOwnership = entry.get("accountOwnership");
-        String accountName = entry.get("accountName");
+        String ownership = entry.get("accountOwnership");
+        String accountName = (entry.get("accountName"));
         double initialDepositAmount = Double.parseDouble(entry.get("initialDepositAmount"));
-
-        return new NewCheckingAccountInfo(checkingAccountType, accountOwnership, accountName, initialDepositAmount);
+        return new SuccessfulAccountInfo(checkingAccountType, ownership, accountName, initialDepositAmount);
     }
 }
